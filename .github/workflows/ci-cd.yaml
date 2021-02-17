@@ -18,6 +18,8 @@ jobs:
       - name: Build image
         run: |
           docker-compose up --build -d
+          sleep 10
+          docker-compose logs db
 
   cd:
     needs: ci
@@ -35,8 +37,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_USERNAME }}
       
       - name: Build and push
         id: docker_build
